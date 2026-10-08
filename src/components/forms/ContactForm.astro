@@ -1,0 +1,476 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+const wpApiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://be-web.visi-bangun.com/wp-json';
+const endpoint = `${wpApiUrl}/vbp/v1/contact`;
+---
+
+<div class={`contact-form-card ${className}`}>
+  <div class="form-header">
+    <div class="eyebrow">Get in Touch</div>
+    <h2>Send Us Your Inquiry</h2>
+    <p class="prose">
+      Berikan informasi awal mengenai kebutuhan proyek Anda. Tim teknis kami akan meninjau inquiry dan menghubungi Anda untuk pembahasan lebih lanjut.
+    </p>
+  </div>
+
+  <form
+    class="inquiry-form"
+    id="native-contact-form"
+    data-endpoint={endpoint}
+    novalidate
+  >
+    <!-- Spam Protection Honeypot (Invisible to human users) -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="form-hp-check">Do not fill this field</label>
+      <input type="text" id="form-hp-check" name="honeypot" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="contact-name">Name <span class="req" aria-hidden="true">*</span></label>
+        <input
+          id="contact-name"
+          name="name"
+          type="text"
+          required
+          minlength="2"
+          maxlength="100"
+          placeholder="Nama Lengkap"
+          autocomplete="name"
+        />
+        <span class="field-error" id="error-name"></span>
+      </div>
+
+      <div class="form-field">
+        <label for="contact-company">Company</label>
+        <input
+          id="contact-company"
+          name="company"
+          type="text"
+          maxlength="100"
+          placeholder="Perusahaan / Organisasi"
+          autocomplete="organization"
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label for="contact-email">Email <span class="req" aria-hidden="true">*</span></label>
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          required
+          maxlength="120"
+          placeholder="nama@perusahaan.com"
+          autocomplete="email"
+        />
+        <span class="field-error" id="error-email"></span>
+      </div>
+
+      <div class="form-field">
+        <label for="contact-phone">Phone / WhatsApp <span class="req" aria-hidden="true">*</span></label>
+        <input
+          id="contact-phone"
+          name="phone"
+          type="tel"
+          required
+          minlength="5"
+          maxlength="30"
+          placeholder="08xxxxxxxxxx"
+          autocomplete="tel"
+        />
+        <span class="field-error" id="error-phone"></span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="contact-service">Service Category</label>
+      <select id="contact-service" name="service">
+        <option value="Construction & Civil Infrastructure">Construction &amp; Civil Infrastructure</option>
+        <option value="Renovation & Interior Fit-Out">Renovation &amp; Interior Fit-Out</option>
+        <option value="Facility Maintenance & Engineering">Facility Maintenance &amp; Engineering</option>
+        <option value="Integrated Technology & Security Solutions">Integrated Technology &amp; Security Solutions</option>
+        <option value="Other / Technical Consultation">Other / Technical Consultation</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="contact-message">Project Requirement <span class="req" aria-hidden="true">*</span></label>
+      <textarea
+        id="contact-message"
+        name="message"
+        rows="4"
+        required
+        minlength="5"
+        maxlength="4000"
+        placeholder="Deskripsi jenis proyek, lokasi site, scope perkiraan, target schedule, spesifikasi, dll."
+      ></textarea>
+      <span class="field-error" id="error-message"></span>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-gold submit-btn" type="submit" id="form-submit-btn">
+        <span class="btn-spinner" aria-hidden="true"></span>
+        <span class="btn-text">Send Inquiry &rarr;</span>
+      </button>
+    </div>
+
+    <!-- Status Messages (Success / Error) -->
+    <div
+      class="form-alert"
+      id="form-alert"
+      role="alert"
+      aria-live="polite"
+      tabindex="-1"
+    >
+      <span class="alert-icon" aria-hidden="true"></span>
+      <span class="alert-text"></span>
+    </div>
+  </form>
+</div>
+
+<style>
+  .contact-form-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(28px, 4vw, 44px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-header h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+    margin-bottom: var(--space-3);
+  }
+
+  .form-header .prose {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .inquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Honeypot hidden field */
+  .hp-field {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-field label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-navy);
+    letter-spacing: 0.02em;
+  }
+
+  .form-field .req {
+    color: #e53e3e;
+    font-weight: 700;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    padding: 12px 16px;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-light);
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--color-blue);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(13, 116, 255, 0.15);
+  }
+
+  .form-field.invalid input,
+  .form-field.invalid textarea {
+    border-color: #e53e3e;
+    background-color: #fffaf0;
+  }
+
+  .field-error {
+    font-size: 0.75rem;
+    color: #e53e3e;
+    font-weight: 600;
+    display: none;
+  }
+
+  .form-field.invalid .field-error {
+    display: block;
+  }
+
+  .form-actions {
+    margin-top: var(--space-2);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px 28px;
+    font-size: var(--text-base);
+    position: relative;
+    cursor: pointer;
+  }
+
+  @media (min-width: 600px) {
+    .submit-btn {
+      width: auto;
+      min-width: 200px;
+    }
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Spinner */
+  .btn-spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(7, 26, 52, 0.25);
+    border-top-color: var(--color-navy);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .submit-btn.loading .btn-spinner {
+    display: inline-block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Form Alert Box */
+  .form-alert {
+    display: none;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-top: var(--space-3);
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .form-alert.visible {
+    display: flex;
+  }
+
+  .form-alert.success {
+    background-color: #f0fff4;
+    color: #22543d;
+    border: 1px solid #c6f6d5;
+  }
+
+  .form-alert.success .alert-icon::before {
+    content: '✓';
+    font-weight: bold;
+    color: #38a169;
+  }
+
+  .form-alert.error {
+    background-color: #fff5f5;
+    color: #742a2a;
+    border: 1px solid #fed7d7;
+  }
+
+  .form-alert.error .alert-icon::before {
+    content: '⚠';
+    font-weight: bold;
+    color: #e53e3e;
+  }
+</style>
+
+<script>
+  function setupNativeContactForm() {
+    const form = document.getElementById('native-contact-form') as HTMLFormElement | null;
+    if (!form || form.dataset.initialized === 'true') return;
+    form.dataset.initialized = 'true';
+
+    const submitBtn = document.getElementById('form-submit-btn') as HTMLButtonElement | null;
+    const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement | null;
+    const alertBox = document.getElementById('form-alert') as HTMLElement | null;
+    const alertText = alertBox?.querySelector('.alert-text') as HTMLElement | null;
+    const endpoint = form.dataset.endpoint || 'https://be-web.visi-bangun.com/wp-json/vbp/v1/contact';
+
+    let isSubmitting = false;
+
+    function showAlert(type: 'success' | 'error', message: string) {
+      if (!alertBox || !alertText) return;
+      alertBox.className = `form-alert visible ${type}`;
+      alertText.textContent = message;
+      alertBox.focus();
+    }
+
+    function clearAlert() {
+      if (!alertBox || !alertText) return;
+      alertBox.className = 'form-alert';
+      alertText.textContent = '';
+    }
+
+    function validateField(input: HTMLInputElement | HTMLTextAreaElement, errorId: string, errorMsg: string): boolean {
+      const fieldWrap = input.closest('.form-field');
+      const errorEl = document.getElementById(errorId);
+      const val = input.value.trim();
+
+      if (!val || (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))) {
+        fieldWrap?.classList.add('invalid');
+        if (errorEl) errorEl.textContent = errorMsg;
+        return false;
+      }
+
+      fieldWrap?.classList.remove('invalid');
+      if (errorEl) errorEl.textContent = '';
+      return true;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      clearAlert();
+
+      // Form Elements
+      const nameInput = document.getElementById('contact-name') as HTMLInputElement;
+      const emailInput = document.getElementById('contact-email') as HTMLInputElement;
+      const phoneInput = document.getElementById('contact-phone') as HTMLInputElement;
+      const companyInput = document.getElementById('contact-company') as HTMLInputElement;
+      const serviceInput = document.getElementById('contact-service') as HTMLSelectElement;
+      const messageInput = document.getElementById('contact-message') as HTMLTextAreaElement;
+      const hpInput = document.getElementById('form-hp-check') as HTMLInputElement;
+
+      // Frontend Validations
+      let isValid = true;
+      if (!validateField(nameInput, 'error-name', 'Nama wajib diisi (minimal 2 karakter).')) isValid = false;
+      if (!validateField(emailInput, 'error-email', 'Alamat email tidak valid.')) isValid = false;
+      if (!validateField(phoneInput, 'error-phone', 'Nomor telepon/WhatsApp wajib diisi.')) isValid = false;
+      if (!validateField(messageInput, 'error-message', 'Deskripsi kebutuhan wajib diisi (minimal 5 karakter).')) isValid = false;
+
+      if (!isValid) {
+        showAlert('error', 'Mohon lengkapi seluruh kolom wajib yang bertanda (*).');
+        return;
+      }
+
+      // Check Honeypot spam field
+      const honeypotVal = hpInput?.value.trim() || '';
+      if (honeypotVal) {
+        // Silently fool spam bots
+        form.reset();
+        showAlert('success', 'Your message has been sent successfully.');
+        return;
+      }
+
+      // Payload matching WordPress REST API
+      const payload = {
+        name: nameInput.value.trim(),
+        company: companyInput.value.trim() || '-',
+        email: emailInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        service: serviceInput.value.trim(),
+        message: messageInput.value.trim(),
+        honeypot: honeypotVal,
+      };
+
+      // Set Loading UI
+      isSubmitting = true;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+      }
+      if (btnText) {
+        btnText.textContent = 'Sending...';
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => null);
+
+        if (response.ok && data && data.success !== false) {
+          form.reset();
+          showAlert(
+            'success',
+            data.message || 'Terima kasih. Pesan Anda telah berhasil dikirim ke tim Visi Bangun Perkasa.'
+          );
+        } else {
+          const errMsg = data?.message || 'Gagal mengirim inquiry saat ini. Silakan hubungi kami via WhatsApp atau email.';
+          showAlert('error', errMsg);
+        }
+      } catch (err: any) {
+        showAlert(
+          'error',
+          'Terjadi gangguan koneksi ke server. Silakan hubungi kami langsung via WhatsApp atau email.'
+        );
+      } finally {
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('loading');
+        }
+        if (btnText) {
+          btnText.textContent = 'Send Inquiry →';
+        }
+      }
+    });
+  }
+
+  setupNativeContactForm();
+  document.addEventListener('astro:after-swap', setupNativeContactForm);
+</script>

@@ -1,0 +1,84 @@
+:root {
+  /* Color Palette */
+  --color-navy: #071a34;
+  --color-navy-dark: #051427;
+  --color-navy-deep: #030d1a;
+  --color-navy-card: #0b2a4b;
+  --color-navy-surface: #0e355e;
+  --color-blue: #0d74ff;
+  --color-blue-dark: #085ecf;
+  --color-gold: #f6b936;
+  --color-gold-hover: #e5a725;
+  --color-gold-light: #fef4dd;
+  
+  --color-text-primary: #102143;
+  --color-text-secondary: #5a6e85;
+  --color-text-muted: #64748b;
+  --color-text-light: #ffffff;
+  --color-text-light-muted: rgba(255, 255, 255, 0.75);
+
+  --color-border: #dce5ef;
+  --color-border-subtle: #eef3f8;
+  --color-border-dark: rgba(255, 255, 255, 0.12);
+
+  --color-bg-page: #ffffff;
+  --color-bg-light: #f5f8fb;
+  --color-bg-alt: #f8fafc;
+  --color-bg-dark: #071a34;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8125rem, 0.775rem + 0.2vw, 0.875rem);
+  --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --text-lg: clamp(1.0625rem, 1rem + 0.35vw, 1.125rem);
+  --text-xl: clamp(1.2rem, 1.1rem + 0.5vw, 1.35rem);
+  --text-2xl: clamp(1.4rem, 1.25rem + 0.8vw, 1.65rem);
+  --text-3xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.15rem);
+  --text-4xl: clamp(2.1rem, 1.8rem + 1.6vw, 2.75rem);
+  --text-5xl: clamp(2.5rem, 2rem + 2.4vw, 3.5rem);
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Layout & Containers */
+  --container-max: 1200px;
+  --container-wide: 1360px;
+  --container-narrow: 860px;
+  --container-padding: clamp(16px, 4vw, 32px);
+  --header-height: 74px;
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(7, 26, 52, 0.05);
+  --shadow-md: 0 8px 24px rgba(7, 26, 52, 0.08);
+  --shadow-lg: 0 18px 50px rgba(7, 26, 52, 0.12);
+  --shadow-hover: 0 22px 60px rgba(7, 26, 52, 0.16);
+  --shadow-glow: 0 0 24px rgba(246, 185, 54, 0.35);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}

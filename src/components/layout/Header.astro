@@ -1,0 +1,287 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Industries', href: '/industries' },
+  { label: 'Quality & Safety', href: '/quality-safety' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/' && (currentPath === '/' || currentPath === '')) return true;
+  if (href !== '/' && currentPath.startsWith(href)) return true;
+  return false;
+}
+---
+
+<header class="topbar" id="site-header">
+  <div class="container nav-container">
+    <a class="brand" href="/" aria-label="Visi Bangun Perkasa Home">
+      <img src="/assets/p1/logo.png" alt="PT. Visi Bangun Perkasa Logo" width="46" height="46" />
+      <span class="brand-text">
+        <strong>VISI BANGUN PERKASA</strong>
+        <small>Trusted Partner for Industrial Construction &amp; Integrated Solutions</small>
+      </span>
+    </a>
+
+    <nav class="navlinks" aria-label="Primary navigation">
+      {navItems.map((item) => (
+        <a class={isActive(item.href) ? 'active' : ''} href={item.href}>
+          {item.label}
+        </a>
+      ))}
+      <a class="navcta" href="/contact">Get a Quotation &rarr;</a>
+    </nav>
+
+    <button class="menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" type="button">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-panel" id="mobile-nav-panel">
+    <div class="mobile-links">
+      {navItems.map((item) => (
+        <a class={isActive(item.href) ? 'active' : ''} href={item.href}>
+          {item.label}
+        </a>
+      ))}
+      <a class="btn btn-gold mobile-cta" href="/contact">Get a Quotation &rarr;</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(7, 26, 52, 0.98);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all var(--transition-normal);
+  }
+
+  .nav-container {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .brand img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .brand-text strong {
+    font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+
+  .brand-text small {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: -0.01em;
+    max-width: 320px;
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    .brand-text small {
+      display: block;
+    }
+  }
+
+  .navlinks {
+    display: none;
+    align-items: center;
+    gap: clamp(14px, 1.6vw, 24px);
+  }
+
+  @media (min-width: 1080px) {
+    .navlinks {
+      display: flex;
+    }
+  }
+
+  .navlinks a {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 24px 0;
+    position: relative;
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+
+  .navlinks a:hover {
+    color: var(--color-gold);
+  }
+
+  .navlinks a.active {
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .navlinks a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--color-gold);
+    border-radius: 3px 3px 0 0;
+  }
+
+  .navcta {
+    background-color: var(--color-gold) !important;
+    color: var(--color-navy) !important;
+    padding: 10px 18px !important;
+    border-radius: var(--radius-sm);
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(246, 185, 54, 0.25);
+    transition: all var(--transition-normal) !important;
+  }
+
+  .navcta:hover {
+    background-color: var(--color-gold-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(246, 185, 54, 0.4) !important;
+  }
+
+  .navcta.active::after {
+    display: none;
+  }
+
+  /* Mobile menu button */
+  .menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  @media (min-width: 1080px) {
+    .menu-btn {
+      display: none;
+    }
+  }
+
+  .menu-btn .bar {
+    width: 100%;
+    height: 2.5px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all var(--transition-normal);
+  }
+
+  .menu-btn[aria-expanded="true"] .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .menu-btn[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-btn[aria-expanded="true"] .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Mobile panel */
+  .mobile-panel {
+    display: none;
+    background-color: var(--color-navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-panel.open {
+    display: block;
+  }
+
+  .mobile-links {
+    padding: var(--space-6) var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .mobile-links a {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .mobile-links a.active {
+    color: var(--color-gold);
+  }
+
+  .mobile-cta {
+    margin-top: var(--space-4);
+    width: 100%;
+    justify-content: center;
+  }
+</style>
+
+<script>
+  function setupHeader() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const panel = document.getElementById('mobile-nav-panel');
+
+    if (toggle && panel) {
+      toggle.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!isExpanded));
+        panel.classList.toggle('open');
+      });
+
+      // Close on link click
+      panel.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.classList.remove('open');
+        });
+      });
+    }
+  }
+
+  setupHeader();
+  document.addEventListener('astro:after-swap', setupHeader);
+</script>

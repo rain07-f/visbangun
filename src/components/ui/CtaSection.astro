@@ -1,0 +1,81 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  eyebrow?: string;
+  bgImage?: string;
+}
+
+const {
+  title = "Let’s Build Your Next Project Together",
+  subtitle = "Diskusikan kebutuhan proyek Anda dengan tim kami. Kami siap memberikan solusi terbaik yang aman, berkualitas, dan berkelanjutan untuk bisnis Anda.",
+  eyebrow = "LET'S BUILD TOGETHER",
+  bgImage = "/assets/p1/cta.jpg",
+} = Astro.props;
+---
+
+<section class="cta-section" style={`background-image: url('${bgImage}')`}>
+  <div class="cta-overlay"></div>
+  <div class="container">
+    <div class="cta-content">
+      <div class="eyebrow">{eyebrow}</div>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+      <div class="cta-actions">
+        <a class="btn btn-gold" href="/contact">Get a Quotation &rarr;</a>
+        <a class="btn btn-outline" href="https://wa.me/6282199989037" target="_blank" rel="noopener noreferrer">
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    position: relative;
+    background-color: var(--color-navy);
+    color: var(--color-text-light);
+    padding: clamp(64px, 8vw, 110px) 0;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+
+  .cta-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(7, 26, 52, 0.95) 0%, rgba(7, 26, 52, 0.85) 60%, rgba(11, 42, 75, 0.8) 100%);
+    z-index: 1;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 760px;
+  }
+
+  .cta-content h2 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .cta-content p {
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: var(--space-2);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+</style>

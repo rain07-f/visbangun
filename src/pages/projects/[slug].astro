@@ -1,0 +1,359 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaSection from '../../components/ui/CtaSection.astro';
+import { getProjects } from '../../lib/wordpress/portfolio';
+import type { ProjectItem } from '../../lib/wordpress/types';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: ProjectItem;
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.title} | Visi Bangun Perkasa`}
+  description={`Project Case Study: ${project.title} for ${project.client}. Scope: ${project.scope.join(', ')}.`}
+  image={project.image}
+>
+  <!-- Detail Hero -->
+  <section class="page-hero" style="background-image: url('/assets/p5/details/projects-hero.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="eyebrow">{project.category}</div>
+      <h1>{project.title}</h1>
+      <p>Selected project experience based on PT. Visi Bangun Perkasa company credentials.</p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>&rsaquo;</span>
+        <a href="/projects">Projects</a>
+        <span>&rsaquo;</span>
+        <span>{project.title}</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Project Detail Content -->
+  <section class="section project-detail-section">
+    <div class="container detail-layout">
+      <!-- Left: Interactive Gallery -->
+      <div class="detail-gallery-col">
+        <div class="gallery-container">
+          <div class="gallery-frame" id="gallery-frame">
+            <img id="active-gallery-image" src={project.images[0] || project.image} alt={project.title} />
+          </div>
+
+          {project.images.length > 1 && (
+            <div class="gallery-controls">
+              <button class="gallery-arrow" id="gallery-prev" aria-label="Previous photo" type="button">
+                &larr;
+              </button>
+              <div class="gallery-dots" id="gallery-dots">
+                {project.images.map((_, index) => (
+                  <button
+                    class={`gallery-dot ${index === 0 ? 'active' : ''}`}
+                    data-index={index}
+                    aria-label={`Photo ${index + 1}`}
+                    type="button"
+                  />
+                ))}
+              </div>
+              <button class="gallery-arrow" id="gallery-next" aria-label="Next photo" type="button">
+                &rarr;
+              </button>
+            </div>
+          )}
+
+          <div class="gallery-caption" id="gallery-caption">
+            Photo 1 of {project.images.length}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Project Overview & Meta -->
+      <div class="detail-info-col">
+        <div class="eyebrow dark">Project Overview</div>
+        <h2>Project Specification</h2>
+
+        <div class="meta-card">
+          <div class="meta-item">
+            <small>Client</small>
+            <strong>{project.client}</strong>
+          </div>
+          <div class="meta-item">
+            <small>Location</small>
+            <strong>{project.location}</strong>
+          </div>
+          <div class="meta-item">
+            <small>Duration</small>
+            <strong>{project.duration}</strong>
+          </div>
+        </div>
+
+        <div class="detail-block">
+          <h3>Scope of Work</h3>
+          <ul class="scope-list">
+            {project.scope.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        {project.challenge && (
+          <div class="detail-block">
+            <h3>Project Challenge</h3>
+            <p class="prose">{project.challenge}</p>
+          </div>
+        )}
+
+        {project.result && (
+          <div class="detail-block">
+            <h3>Delivery &amp; Result</h3>
+            <p class="prose">{project.result}</p>
+          </div>
+        )}
+
+        <div class="detail-actions">
+          <a class="btn btn-gold" href={`/contact?project=${encodeURIComponent(project.title)}`}>
+            Discuss a Similar Project &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 960px) {
+    .detail-layout {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-12);
+    }
+  }
+
+  /* Gallery */
+  .gallery-container {
+    background-color: var(--color-navy);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-md);
+  }
+
+  .gallery-frame {
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: #030d1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity var(--transition-normal);
+  }
+
+  .gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-2) var(--space-2);
+  }
+
+  .gallery-arrow {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .gallery-arrow:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+
+  .gallery-dots {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .gallery-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .gallery-dot.active {
+    background-color: var(--color-gold);
+    width: 24px;
+    border-radius: 5px;
+  }
+
+  .gallery-caption {
+    text-align: center;
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: var(--space-2);
+  }
+
+  /* Detail Info */
+  .detail-info-col h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+    margin-bottom: var(--space-5);
+  }
+
+  .meta-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 500px) {
+    .meta-card {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-item small {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .meta-item strong {
+    font-size: var(--text-sm);
+    color: var(--color-navy);
+    font-weight: 700;
+  }
+
+  .detail-block {
+    margin-bottom: var(--space-5);
+  }
+
+  .detail-block h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: var(--space-2);
+  }
+
+  .scope-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .scope-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    position: relative;
+    padding-left: 16px;
+    line-height: 1.5;
+  }
+
+  .scope-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-size: 1.2em;
+  }
+
+  .prose {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .detail-actions {
+    margin-top: var(--space-6);
+  }
+</style>
+
+<script define:vars={{ images: project.images }}>
+  function setupGallery() {
+    if (!images || images.length <= 1) return;
+
+    let currentIndex = 0;
+    const imgEl = document.getElementById('active-gallery-image');
+    const dots = document.querySelectorAll('.gallery-dot');
+    const caption = document.getElementById('gallery-caption');
+    const prevBtn = document.getElementById('gallery-prev');
+    const nextBtn = document.getElementById('gallery-next');
+
+    function update(index) {
+      currentIndex = (index + images.length) % images.length;
+      if (imgEl) {
+        imgEl.style.opacity = '0.5';
+        imgEl.src = images[currentIndex];
+        imgEl.onload = () => {
+          imgEl.style.opacity = '1';
+        };
+      }
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+      if (caption) {
+        caption.textContent = `Photo ${currentIndex + 1} of ${images.length}`;
+      }
+    }
+
+    if (prevBtn) prevBtn.onclick = () => update(currentIndex - 1);
+    if (nextBtn) nextBtn.onclick = () => update(currentIndex + 1);
+
+    dots.forEach((dot) => {
+      dot.onclick = () => {
+        const idx = Number(dot.getAttribute('data-index'));
+        update(idx);
+      };
+    });
+  }
+
+  setupGallery();
+  document.addEventListener('astro:after-swap', setupGallery);
+</script>

@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaSection from '../../components/ui/CtaSection.astro';
+import { getPosts, getPostFeaturedImage, getPostAuthor, getPostCategoryNames, formatPostDate } from '../../lib/wordpress/posts';
+import type { WPPost } from '../../lib/wordpress/types';
+
+export async function getStaticPaths() {
+  const posts = await getPosts({ perPage: 100 });
+  if (!posts || posts.length === 0) {
+    return [];
+  }
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: WPPost;
+}
+
+const { post } = Astro.props;
+const image = getPostFeaturedImage(post) || '/assets/p1/home-hero.jpg';
+const author = getPostAuthor(post);
+const categories = getPostCategoryNames(post);
+const date = formatPostDate(post.date);
+---
+
+<BaseLayout
+  title={`${post.title.rendered} | Visi Bangun Perkasa`}
+  description={post.excerpt?.rendered?.replace(/<[^>]+>/g, '').slice(0, 150) || 'Baca artikel dari PT. Visi Bangun Perkasa'}
+  image={image}
+  type="article"
+>
+  <!-- Hero Section -->
+  <section class="page-hero article-hero" style={`background-image: url('${image}');`}>
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      {categories.length > 0 && (
+        <div class="eyebrow">{categories[0]}</div>
+      )}
+      <h1 set:html={post.title.rendered} />
+      <div class="article-meta">
+        <span>By {author}</span>
+        <span>&bull;</span>
+        <time datetime={post.date}>{date}</time>
+      </div>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>&rsaquo;</span>
+        <a href="/blog">Blog</a>
+        <span>&rsaquo;</span>
+        <span set:html={post.title.rendered} />
+      </nav>
+    </div>
+  </section>
+
+  <!-- Article Body -->
+  <article class="section article-section">
+    <div class="container container-narrow">
+      <div class="prose-content" set:html={post.content.rendered} />
+
+      <div class="article-footer">
+        <a class="btn btn-outline-dark" href="/blog">&larr; Back to All Articles</a>
+        <a class="btn btn-gold" href="/contact">Consult With Our Team &rarr;</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- CTA Section -->
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .article-hero h1 {
+    font-size: var(--text-3xl);
+    line-height: 1.25;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-sm);
+    margin-top: var(--space-2);
+  }
+
+  /* Prose Content Styling */
+  .prose-content {
+    font-size: var(--text-base);
+    line-height: 1.8;
+    color: var(--color-text-primary);
+  }
+
+  .prose-content :global(p) {
+    margin-bottom: var(--space-5);
+  }
+
+  .prose-content :global(h2) {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+  }
+
+  .prose-content :global(h3) {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    margin-bottom: var(--space-5);
+    padding-left: var(--space-6);
+  }
+
+  .prose-content :global(ul) {
+    list-style: disc;
+  }
+
+  .prose-content :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: var(--space-2);
+  }
+
+  .prose-content :global(img) {
+    border-radius: var(--radius-md);
+    margin: var(--space-6) 0;
+  }
+
+  .prose-content :global(blockquote) {
+    border-left: 4px solid var(--color-gold);
+    padding-left: var(--space-4);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    margin: var(--space-6) 0;
+  }
+
+  .article-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

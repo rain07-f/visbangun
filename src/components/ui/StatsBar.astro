@@ -1,0 +1,137 @@
+---
+---
+
+<section class="home-stats" aria-label="Company highlights">
+  <div class="container">
+    <div class="home-statsbar">
+      <div class="stat-item">
+        <span class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" width="36" height="36">
+            <path d="M24 5l4.2 3.1 5.2-.1 2.3 4.7 4.5 2.5-.9 5.1 2.5 4.4-2.5 4.4.9 5.1-4.5 2.5-2.3 4.7-5.2-.1L24 43l-4.2-3.1-5.2.1-2.3-4.7-4.5-2.5.9-5.1-2.5-4.4 2.5-4.4-.9-5.1 4.5-2.5 2.3-4.7 5.2.1L24 5z" stroke="currentColor" stroke-width="2.2"/>
+            <path d="M18 24l4 4 8-9" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="stat-copy">
+          <strong>15+</strong>
+          <span>Years Combined Experience</span>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" width="36" height="36">
+            <path d="M10 42V18h28v24" stroke="currentColor" stroke-width="2.4"/>
+            <path d="M16 18V9h16v9M7 42h34M16 25h4M28 25h4M16 32h4M28 32h4M22 42V35h4v7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="stat-copy">
+          <strong>50+</strong>
+          <span>Completed Projects</span>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" width="36" height="36">
+            <circle cx="18" cy="17" r="5" stroke="currentColor" stroke-width="2.3"/>
+            <circle cx="30" cy="18" r="4" stroke="currentColor" stroke-width="2.1"/>
+            <path d="M8 38c.7-7 4.1-10 10-10s9.3 3 10 10M27 29c5.1-.1 8.2 2.5 9 7.8" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div class="stat-copy">
+          <strong>10+</strong>
+          <span>Corporate Clients</span>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-icon" aria-hidden="true">
+          <svg viewBox="0 0 60 48" fill="none" width="44" height="36">
+            <path d="M7 10l14-5 18 5 14-5v33l-14 5-18-5-14 5V10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M21 5v33M39 10v33" stroke="currentColor" stroke-width="1.7"/>
+            <path d="M31 13c-3.8 0-6.5 2.6-6.5 6 0 4.9 6.5 11 6.5 11s6.5-6.1 6.5-11c0-3.4-2.7-6-6.5-6z" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="31" cy="19" r="1.8" fill="currentColor"/>
+          </svg>
+        </span>
+        <div class="stat-copy">
+          <strong>All Indonesia</strong>
+          <span>Coverage Area</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-stats {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    z-index: 5;
+  }
+
+  .home-statsbar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-8) 0;
+  }
+
+  @media (min-width: 600px) {
+    .home-statsbar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-statsbar {
+      grid-template-columns: repeat(4, 1fr);
+      padding: var(--space-10) 0;
+    }
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border-subtle);
+    transition: all var(--transition-normal);
+  }
+
+  .stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-border);
+  }
+
+  .stat-icon {
+    color: var(--color-blue);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .stat-copy strong {
+    font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.75rem);
+    font-weight: 800;
+    color: var(--color-navy);
+  }
+
+  .stat-copy span {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+const faqs = [
+  {
+    question: 'Berapa lama proses pembuatan quotation?',
+    answer: 'Setelah informasi proyek lengkap diterima, tim engineering & estimator VBP melakukan kajian teknis dan menyiapkan quotation. Waktu proses umumnya berkisar antara 2–5 hari kerja tergantung pada kompleksitas spesifikasi dan skala proyek.',
+  },
+  {
+    question: 'Apa saja informasi yang perlu disiapkan untuk inquiry?',
+    answer: 'Informasi utama yang dibutuhkan mencakup jenis pekerjaan, lokasi site, estimasi scope of work, gambar/spesifikasi teknis (apabila sudah tersedia), target jadwal pelaksanaan, serta profil kontak perusahaan.',
+  },
+  {
+    question: 'Apakah VBP melayani proyek di luar Jabodetabek?',
+    answer: 'Ya. VBP melayani pelaksanaan proyek konstruksi, renovasi, dan integrasi teknologi di seluruh wilayah Indonesia (All Indonesia) sesuai dengan kebutuhan mobilisasi dan karakteristik teknis site.',
+  },
+  {
+    question: 'Apakah bisa melakukan site survey terlebih dahulu?',
+    answer: 'Bisa. Site survey dapat dijadwalkan bersama tim teknis kami untuk memeriksa kondisi fisik existing, aksesibilitas logistik, serta parameter teknis lapangan sebelum finalisasi quotation.',
+  },
+  {
+    question: 'Bagaimana proses kerjasama setelah quotation disetujui?',
+    answer: 'Proses dilanjutkan dengan konfirmasi scope kerja dan schedule, penandatanganan Kontrak/PO, penyusunan rencana keselamatan (HSE Plan), mobilisasi peralatan dan material, hingga kick-off eksekusi di lapangan.',
+  },
+];
+---
+
+<div class="faq-container">
+  <div class="eyebrow">FAQ</div>
+  <h3 class="faq-title">Pertanyaan yang Sering Diajukan</h3>
+
+  <div class="faq-list">
+    {faqs.map((faq, index) => (
+      <div class="faq-item" data-index={index}>
+        <button class="faq-trigger" type="button" aria-expanded="false">
+          <span class="faq-q">{faq.question}</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-body" hidden>
+          <div class="faq-content">
+            <p>{faq.answer}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .faq-container {
+    margin-top: var(--space-8);
+  }
+
+  .faq-title {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    margin-bottom: var(--space-5);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq-item {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all var(--transition-fast);
+  }
+
+  .faq-item.open {
+    border-color: var(--color-blue);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--color-navy);
+    cursor: pointer;
+  }
+
+  .faq-trigger:hover {
+    color: var(--color-blue);
+  }
+
+  .faq-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--color-gold);
+    font-weight: 800;
+    transition: transform var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    color: var(--color-navy);
+  }
+
+  .faq-body {
+    padding: 0 var(--space-5) var(--space-4);
+  }
+
+  .faq-content p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  function setupFaq() {
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach((item) => {
+      const trigger = item.querySelector('.faq-trigger');
+      const body = item.querySelector('.faq-body');
+
+      if (trigger && body) {
+        trigger.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          // Close others
+          items.forEach((other) => {
+            other.classList.remove('open');
+            other.querySelector('.faq-trigger')?.setAttribute('aria-expanded', 'false');
+            const otherBody = other.querySelector('.faq-body') as HTMLElement | null;
+            if (otherBody) otherBody.hidden = true;
+          });
+
+          if (!isOpen) {
+            item.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+            (body as HTMLElement).hidden = false;
+          }
+        });
+      }
+    });
+  }
+
+  setupFaq();
+  document.addEventListener('astro:after-swap', setupFaq);
+</script>

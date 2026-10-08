@@ -1,0 +1,11 @@
+---
+import NativeContactForm from '../forms/ContactForm.astro';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<NativeContactForm className={className} />

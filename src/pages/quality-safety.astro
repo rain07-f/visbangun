@@ -1,0 +1,336 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaSection from '../components/ui/CtaSection.astro';
+
+const pillars = [
+  { icon: '✓', title: 'Quality', desc: 'Pengendalian mutu terstandarisasi melalui perencanaan terukur, koordinasi bertahap, dan inspeksi berkala pada setiap fase pekerjaan.' },
+  { icon: '◉', title: 'Safety', desc: 'Perhatian maksimal terhadap kondisi lingkungan kerja, identifikasi potensi bahaya dini, serta mitigasi risiko lapangan tanpa kompromi.' },
+  { icon: '⌁', title: 'Engineering', desc: 'Pendekatan rekayasa teknis berbasis standar industri untuk memastikan integritas struktural dan keandalan sistem jangka panjang.' },
+  { icon: '▣', title: 'Documentation', desc: 'Komunikasi transparan, pelaporan progres berkala, dan dokumentasi as-built drawings lengkap sebagai jaminan akuntabilitas proyek.' },
+];
+
+const steps = [
+  { num: '01', title: 'Planning', desc: 'Identifikasi potensi risiko (HIRA), audit lingkungan kerja, dan penyusunan Project Quality Plan.' },
+  { num: '02', title: 'Implementation', desc: 'Penerapan SOP keselamatan terstandar, safety induction harian, dan pengawasan ketat oleh safety officer bersertifikat.' },
+  { num: '03', title: 'Monitoring', desc: 'Inspeksi berkala terhadap material, metode kerja, kepatuhan APD, dan evaluasi berkala bersama manajemen proyek.' },
+  { num: '04', title: 'Completion', desc: 'Serah terima proyek dengan pengujian fungsi menyeluruh (Testing & Commissioning), aman, dan terdokumentasi rapi.' },
+];
+---
+
+<BaseLayout
+  title="Quality & Safety | Visi Bangun Perkasa"
+  description="Committed to Quality, Safety, and Sustainable Execution — PT. Visi Bangun Perkasa across Indonesia."
+>
+  <!-- Hero Section -->
+  <section class="page-hero" style="background-image: url('/assets/p3/quality-header.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="eyebrow">Quality &amp; Safety</div>
+      <h1>Committed to Quality,<br /><span>Safety, and Sustainable Execution</span></h1>
+      <p>
+        Kualitas pekerjaan, keselamatan kerja, dan disiplin eksekusi menjadi bagian tak terpisahkan dalam setiap tahapan delivery proyek PT. Visi Bangun Perkasa.
+      </p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>&rsaquo;</span>
+        <span>Quality &amp; Safety</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Commitment & Pillars -->
+  <section class="section qs-commitment-section">
+    <div class="container qs-commitment-grid">
+      <div class="qs-commitment-prose">
+        <div class="eyebrow dark">Our Commitment</div>
+        <h2>Quality, Safety &amp; Responsibility</h2>
+        <p>
+          PT. Visi Bangun Perkasa menempatkan kualitas teknis, keselamatan kerja para personel, ketepatan waktu, dan komunikasi proyek yang transparan sebagai pondasi integritas perusahaan.
+        </p>
+        <p>
+          Untuk setiap karakteristik site yang unik—mulai dari fasilitas industri manufaktur aktif, area perbankan berkeamanan tinggi, hingga site pertambangan—pendekatan engineering dan execution kami adaptasikan dengan kepatuhan penuh terhadap standar HSE klien dan regulasi ketenagakerjaan nasional.
+        </p>
+      </div>
+
+      <div class="qs-pillars-grid">
+        {pillars.map((p) => (
+          <div class="pillar-card">
+            <span class="pillar-icon">{p.icon}</span>
+            <h4>{p.title}</h4>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Split Showcase -->
+  <section class="section section-light qs-features-section">
+    <div class="container features-stack">
+      <article class="feature-card">
+        <div class="feature-img">
+          <img src="/assets/p3/quality-body.jpg" alt="Quality project environment" loading="lazy" />
+        </div>
+        <div class="feature-body">
+          <div class="eyebrow">Quality Management</div>
+          <h3>Quality in Every Detail</h3>
+          <p>
+            Kami menerapkan proses manajemen kualitas yang terstruktur mulai dari verifikasi spesifikasi material di awal, quality control di workshop/lapangan, hingga serah terima pekerjaan akhir.
+          </p>
+          <ul class="feature-points">
+            <li>Pemilihan material bermutu sesuai standar SNI &amp; ISO</li>
+            <li>Tenaga kerja dan teknisi berpengalaman serta tersertifikasi</li>
+            <li>Pengujian berkala pada setiap tahapan konstruksi utama</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature-card reverse">
+        <div class="feature-img">
+          <img src="/assets/p3/quality-hero.jpg" alt="Health, Safety and Environment" loading="lazy" />
+        </div>
+        <div class="feature-body">
+          <div class="eyebrow">Health, Safety &amp; Environment</div>
+          <h3>Safety Focus for Sustainable Projects</h3>
+          <p>
+            Keselamatan kerja (K3) adalah prioritas non-negosiasi. Kami menerapkan disiplin Zero Accident mindset di setiap site guna melindungi seluruh tenaga kerja, operasional klien, dan kelestarian lingkungan sekitar.
+          </p>
+          <ul class="feature-points">
+            <li>Kewajiban Alat Pelindung Diri (APD) lengkap di setiap zona proyek</li>
+            <li>Analisis Keselamatan Kerja (JSA / Job Safety Analysis) sebelum eksekusi</li>
+            <li>Prosedur tanggap darurat dan kesiagaan evakuasi berkala</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4-Step Process Section -->
+  <section class="section section-dark qs-process-section">
+    <div class="container">
+      <div class="section-head split">
+        <div>
+          <div class="eyebrow">Our Process</div>
+          <h2>From Planning to Safe Completion</h2>
+        </div>
+        <p>
+          Sistematisasi kerja menjamin setiap fase proyek terkontrol, aman, dan menghasilkan output berkualitas tinggi.
+        </p>
+      </div>
+
+      <div class="process-steps-grid">
+        {steps.map((st) => (
+          <div class="step-card">
+            <span class="step-card-num">{st.num}</span>
+            <h4>{st.title}</h4>
+            <p>{st.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  /* Commitment */
+  .qs-commitment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 960px) {
+    .qs-commitment-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+  }
+
+  .qs-commitment-prose h2 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+    margin-bottom: var(--space-4);
+  }
+
+  .qs-commitment-prose p {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+  }
+
+  .qs-pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 500px) {
+    .qs-pillars-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .pillar-card {
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pillar-icon {
+    font-size: 1.5rem;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .pillar-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: var(--space-1);
+  }
+
+  .pillar-card p {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Features Stack */
+  .features-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .feature-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 900px) {
+    .feature-card {
+      grid-template-columns: 1fr 1fr;
+    }
+    .feature-card.reverse .feature-img {
+      order: 2;
+    }
+  }
+
+  .feature-img {
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+  }
+
+  .feature-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-body {
+    padding: clamp(28px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  .feature-body h3 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+  }
+
+  .feature-body p {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .feature-points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .feature-points li {
+    font-size: var(--text-xs);
+    color: var(--color-text-primary);
+    position: relative;
+    padding-left: 16px;
+    font-weight: 600;
+  }
+
+  .feature-points li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-gold);
+    font-weight: bold;
+  }
+
+  /* Process Steps */
+  .process-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 600px) {
+    .process-steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-steps-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .step-card {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+  }
+
+  .step-card-num {
+    display: inline-block;
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-gold);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: var(--space-2);
+  }
+
+  .step-card p {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+</style>

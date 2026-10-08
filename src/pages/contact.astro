@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/contact/ContactForm.astro';
+import FaqAccordion from '../components/contact/FaqAccordion.astro';
+---
+
+<BaseLayout
+  title="Contact Us | Visi Bangun Perkasa"
+  description="Let’s Build Your Next Project Together — PT. Visi Bangun Perkasa, industrial construction and integrated solutions across Indonesia."
+>
+  <!-- Hero Section -->
+  <section class="page-hero" style="background-image: url('/assets/p6/contact-hero.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="eyebrow">Contact</div>
+      <h1>Let’s Build Your Next<br /><span>Project Together</span></h1>
+      <p>
+        Diskusikan kebutuhan proyek konstruksi, renovasi, atau integrasi teknologi Anda bersama tim ahli PT. Visi Bangun Perkasa.
+      </p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>&rsaquo;</span>
+        <span>Contact</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Contact Grid Section -->
+  <section class="section contact-section">
+    <div class="container contact-grid">
+      <!-- Left Column: Inquiry Form -->
+      <div class="form-column">
+        <ContactForm />
+      </div>
+
+      <!-- Right Column: Office Info & FAQ -->
+      <div class="info-column">
+        <!-- Office Info Card -->
+        <div class="office-card">
+          <div class="office-card-overlay"></div>
+          <div class="office-card-content">
+            <div class="eyebrow">Head Office</div>
+            <h2>PT. Visi Bangun Perkasa</h2>
+            <p class="office-address">
+              Jl. M.T Haryono Km. 4 Setu - Bekasi, Jawa Barat, Indonesia
+            </p>
+            <div class="office-contacts">
+              <p>
+                <strong>WhatsApp:</strong> 0821 9998 9037
+              </p>
+              <p>
+                <strong>Email:</strong> sales@visi-bangun.com
+              </p>
+            </div>
+            <div class="office-actions">
+              <a
+                class="btn btn-gold"
+                href="https://maps.app.goo.gl/sh8QnuXYKajyHmDp6"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buka di Google Maps &rarr;
+              </a>
+              <a
+                class="btn btn-outline"
+                href="https://wa.me/6282199989037"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chat WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <FaqAccordion />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 960px) {
+    .contact-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-12);
+    }
+  }
+
+  /* Office Card */
+  .office-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-image: linear-gradient(rgba(6, 30, 55, 0.45), rgba(6, 30, 55, 0.85)),
+      url('/assets/p6/contact-office-photo.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    box-shadow: var(--shadow-md);
+  }
+
+  .office-card-content {
+    position: relative;
+    z-index: 2;
+    padding: clamp(28px, 4vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .office-card-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+  }
+
+  .office-address {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+  }
+
+  .office-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: var(--space-2) 0;
+  }
+
+  .office-contacts strong {
+    color: var(--color-gold);
+  }
+
+  .office-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+</style>

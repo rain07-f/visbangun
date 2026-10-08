@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatsBar from '../../components/ui/StatsBar.astro';
+import CtaSection from '../../components/ui/CtaSection.astro';
+import ProjectCard from '../../components/portfolio/ProjectCard.astro';
+import { getProjects } from '../../lib/wordpress/portfolio';
+
+const projects = await getProjects();
+
+const smallHighlights = [
+  { image: '/assets/p4/gallery/industrial/1.jpg', cat: 'Construction & Civil', title: 'Plant Facility Construction', sub: 'Mining Industry', loc: 'Kalimantan' },
+  { image: '/assets/p4/gallery/manufacture/1.jpeg', cat: 'Renovation & Interior', title: 'Office Renovation', sub: 'Private Company', loc: 'Jakarta' },
+  { image: '/assets/p4/hvac-ai.jpg', cat: 'Facility Maintenance', title: 'HVAC Maintenance', sub: 'Commercial Building', loc: 'Jakarta' },
+  { image: '/assets/p4/gallery/mandiri/2.jpg', cat: 'Integrated Solutions', title: 'CCTV & Security System', sub: 'Manufacturing Industry', loc: 'Jawa Barat' },
+  { image: '/assets/p4/gallery/jasamarga/1.jpg', cat: 'Construction & Civil', title: 'Warehouse Construction', sub: 'Logistics Company', loc: 'Banten' },
+  { image: '/assets/p4/gallery/manufacture/2.jpeg', cat: 'Renovation & Interior', title: 'Hospital Renovation', sub: 'Healthcare Industry', loc: 'Jakarta' },
+];
+---
+
+<BaseLayout
+  title="Projects | PT. Visi Bangun Perkasa"
+  description="Proven Experience Across Indonesia — Industrial construction, renovation, facility maintenance, and integrated technology solutions by PT. Visi Bangun Perkasa."
+>
+  <!-- Hero Section -->
+  <section class="page-hero" style="background-image: url('/assets/p4/projects-hero.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="eyebrow">OUR PROJECTS</div>
+      <h1>Proven Experience<br /><span>Across Indonesia</span></h1>
+      <p>
+        Kami telah dipercaya untuk menyelesaikan berbagai proyek konstruksi, renovasi, facility maintenance, dan solusi teknologi terintegrasi di berbagai sektor industri. Setiap proyek adalah komitmen kami terhadap kualitas, ketepatan waktu, dan kepuasan pelanggan.
+      </p>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>&rsaquo;</span>
+        <span>Projects</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Main Featured Projects -->
+  <section class="section projects-main-section">
+    <div class="container">
+      <div class="section-head split">
+        <div>
+          <div class="eyebrow">Featured Work</div>
+          <h2>Selected Landmark Projects</h2>
+        </div>
+        <p>
+          Dokumentasi proyek-proyek strategis dengan kepatuhan standar industri tinggi dan rekayasa terpadu.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Supporting Project Portfolio Gallery -->
+  <section class="section section-light project-highlights-section">
+    <div class="container">
+      <div class="section-head split">
+        <div>
+          <div class="eyebrow">Project Portfolio</div>
+          <h2>Cross-Sector Executions</h2>
+        </div>
+        <p>
+          Ragam portofolio pekerjaan mencakup fasilitas manufaktur, sipil, HVAC, dan jaringan perkantoran di berbagai provinsi.
+        </p>
+      </div>
+
+      <div class="small-gallery-grid">
+        {smallHighlights.map((item) => (
+          <div class="small-project-card">
+            <div class="small-card-img">
+              <img src={item.image} alt={item.title} loading="lazy" />
+              <span class="small-card-badge">{item.cat}</span>
+            </div>
+            <div class="small-card-body">
+              <h4>{item.title}</h4>
+              <p>{item.sub}</p>
+              <small>&loz; {item.loc}</small>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <StatsBar />
+
+  <!-- CTA Section -->
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 600px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Small Gallery Grid */
+  .small-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 500px) {
+    .small-gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .small-gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  .small-project-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+  }
+
+  .small-project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .small-card-img {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .small-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .small-card-badge {
+    position: absolute;
+    top: var(--space-2);
+    left: var(--space-2);
+    background-color: rgba(7, 26, 52, 0.85);
+    color: var(--color-gold);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-xs);
+  }
+
+  .small-card-body {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .small-card-body h4 {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  .small-card-body p {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .small-card-body small {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Thank You | Visi Bangun Perkasa"
+  description="Inquiry Received — Terima kasih telah menghubungi PT. Visi Bangun Perkasa."
+>
+  <section class="thank-you-section">
+    <div class="container">
+      <div class="thank-you-card">
+        <div class="success-icon">&#10003;</div>
+        <div class="eyebrow">Thank You</div>
+        <h1>Inquiry Received</h1>
+        <p>
+          Terima kasih. Formulir kebutuhan proyek Anda telah berhasil kami terima. Tim engineering dan manajemen PT. Visi Bangun Perkasa akan meninjau informasi Anda dan segera menghubungi Anda kembali.
+        </p>
+        <div class="thank-you-actions">
+          <a class="btn btn-gold" href="/">Back to Home &rarr;</a>
+          <a class="btn btn-outline-dark" href="/projects">Explore Projects &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thank-you-section {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(60px, 8vw, 100px) 0;
+    background-color: var(--color-bg-light);
+  }
+
+  .thank-you-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(40px, 6vw, 64px) clamp(24px, 4vw, 48px);
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 auto var(--space-4);
+    box-shadow: 0 4px 14px rgba(246, 185, 54, 0.4);
+  }
+
+  .thank-you-card h1 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .thank-you-card p {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  .thank-you-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+</style>
