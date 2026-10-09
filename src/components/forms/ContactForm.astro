@@ -4,8 +4,7 @@ interface Props {
 }
 
 const { className = '' } = Astro.props;
-const wpApiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://be-web.visi-bangun.com/wp-json';
-const endpoint = `${wpApiUrl}/vbp/v1/contact`;
+const endpoint = '/api/contact';
 ---
 
 <div class={`contact-form-card ${className}`}>
@@ -341,7 +340,7 @@ const endpoint = `${wpApiUrl}/vbp/v1/contact`;
     const btnText = submitBtn?.querySelector('.btn-text') as HTMLElement | null;
     const alertBox = document.getElementById('form-alert') as HTMLElement | null;
     const alertText = alertBox?.querySelector('.alert-text') as HTMLElement | null;
-    const endpoint = form.dataset.endpoint || 'https://be-web.visi-bangun.com/wp-json/vbp/v1/contact';
+    const endpoint = form.dataset.endpoint || '/api/contact';
 
     let isSubmitting = false;
 
@@ -410,7 +409,7 @@ const endpoint = `${wpApiUrl}/vbp/v1/contact`;
         return;
       }
 
-      // Payload matching WordPress REST API
+      // Payload to Astro /api/contact proxy
       const payload = {
         name: nameInput.value.trim(),
         company: companyInput.value.trim() || '-',
