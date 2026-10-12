@@ -218,8 +218,25 @@ const industries = [
   .home-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(7, 26, 52, 0.94) 0%, rgba(7, 26, 52, 0.82) 55%, rgba(11, 42, 75, 0.75) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(7, 26, 52, 0.80) 0%,
+      rgba(7, 26, 52, 0.65) 30%,
+      rgba(7, 26, 52, 0.38) 65%,
+      rgba(7, 26, 52, 0.14) 100%
+    );
     z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .home-hero-overlay {
+      background: linear-gradient(
+        180deg,
+        rgba(7, 26, 52, 0.80) 0%,
+        rgba(7, 26, 52, 0.65) 55%,
+        rgba(7, 26, 52, 0.32) 100%
+      );
+    }
   }
 
   .home-hero-content {
@@ -234,6 +251,7 @@ const industries = [
     line-height: 1.15;
     letter-spacing: -0.02em;
     margin-bottom: var(--space-4);
+    text-shadow: 0 2px 14px rgba(7, 26, 52, 0.55);
   }
 
   .home-hero-content h1 span {
@@ -242,10 +260,11 @@ const industries = [
 
   .home-hero-content p {
     font-size: var(--text-lg);
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.90);
     line-height: 1.7;
     max-width: 700px;
     margin-bottom: var(--space-8);
+    text-shadow: 0 1px 8px rgba(7, 26, 52, 0.45);
   }
 
   .hero-actions {

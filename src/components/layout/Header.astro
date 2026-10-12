@@ -63,14 +63,20 @@ function isActive(href: string): boolean {
 
 <style>
   .topbar {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 100;
     background-color: rgba(7, 26, 52, 0.98);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     transition: all var(--transition-normal);
+  }
+
+  @media (min-width: 1024px) {
+    .topbar {
+      position: sticky;
+      top: 0;
+    }
   }
 
   .nav-container {

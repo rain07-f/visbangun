@@ -308,21 +308,33 @@ import CtaSection from '../components/ui/CtaSection.astro';
 
   @media (min-width: 960px) {
     .vm-container {
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: 0.9fr 1.1fr;
       gap: var(--space-12);
+      align-items: center;
     }
   }
 
   .vm-image {
+    position: relative;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    aspect-ratio: 16 / 10;
+    width: 100%;
+  }
+
+  @media (min-width: 960px) {
+    .vm-image {
+      aspect-ratio: 5 / 4;
+      width: 100%;
+    }
   }
 
   .vm-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
   }
 
   .vm-content {

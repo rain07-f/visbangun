@@ -15,6 +15,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
   text-rendering: optimizeLegibility;
 }
 

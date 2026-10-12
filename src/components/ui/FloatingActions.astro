@@ -1,0 +1,238 @@
+---
+interface Props {
+  whatsappNumber?: string;
+  whatsappMessage?: string;
+}
+
+const {
+  whatsappNumber = '6282199989037',
+  whatsappMessage = 'Halo PT. Visi Bangun Perkasa, saya ingin konsultasi mengenai proyek kami.',
+} = Astro.props;
+
+const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<aside class="floating-actions" aria-label="Aksi Cepat">
+  <!-- Scroll To Top Button -->
+  <button
+    id="btn-scroll-top"
+    class="fab-btn fab-scroll-top"
+    type="button"
+    aria-label="Kembali ke atas"
+    title="Kembali ke atas"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- WhatsApp Chat Floating Button -->
+  <a
+    id="btn-whatsapp"
+    class="fab-btn fab-whatsapp"
+    href={waUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat WhatsApp PT. Visi Bangun Perkasa"
+    title="Chat WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path
+        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.63C8.75 21.41 10.38 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 6.45 17.5 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C16.58 3.67 20.28 7.37 20.28 11.91C20.28 16.45 16.58 20.15 12.04 20.15ZM16.56 14.39C16.31 14.26 15.09 13.66 14.86 13.58C14.63 13.5 14.47 13.46 14.3 13.71C14.14 13.96 13.67 14.51 13.53 14.67C13.39 14.84 13.24 14.86 12.99 14.73C12.74 14.61 11.94 14.35 11 13.51C10.26 12.85 9.77 12.04 9.62 11.79C9.48 11.54 9.61 11.41 9.73 11.28C9.84 11.17 9.98 10.99 10.1 10.84C10.23 10.7 10.27 10.59 10.35 10.43C10.43 10.26 10.39 10.12 10.33 10C10.27 9.88 9.77 8.65 9.57 8.15C9.37 7.66 9.17 7.73 9.02 7.72C8.88 7.71 8.71 7.71 8.55 7.71C8.38 7.71 8.12 7.77 7.89 8.02C7.67 8.27 7.03 8.87 7.03 10.09C7.03 11.31 7.92 12.49 8.04 12.65C8.17 12.82 9.79 15.31 12.27 16.38C12.86 16.63 13.32 16.79 13.68 16.9C14.27 17.09 14.81 17.06 15.24 17C15.72 16.93 16.71 16.4 16.92 15.82C17.12 15.24 17.12 14.75 17.06 14.64C17 14.53 16.81 14.52 16.56 14.39Z"
+      ></path>
+    </svg>
+    <span class="fab-wa-tooltip" aria-hidden="true">Chat WhatsApp</span>
+  </a>
+</aside>
+
+<style>
+  .floating-actions {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  .fab-btn {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      transform var(--transition-normal),
+      box-shadow var(--transition-normal),
+      opacity var(--transition-normal),
+      visibility var(--transition-normal),
+      background-color var(--transition-fast),
+      color var(--transition-fast);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Scroll To Top Button */
+  .fab-scroll-top {
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-navy);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 14px rgba(7, 26, 52, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.9);
+  }
+
+  .fab-scroll-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .fab-scroll-top:hover {
+    background-color: var(--color-gold);
+    color: var(--color-navy);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 6px 18px rgba(246, 185, 54, 0.45);
+  }
+
+  .fab-scroll-top:active {
+    transform: translateY(0) scale(0.96);
+  }
+
+  /* WhatsApp Floating Button */
+  .fab-whatsapp {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    background-color: #25d366;
+    color: #ffffff;
+    box-shadow:
+      0 6px 20px rgba(37, 211, 102, 0.4),
+      0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .fab-whatsapp:hover {
+    background-color: #20ba5a;
+    transform: translateY(-2px) scale(1.06);
+    box-shadow:
+      0 8px 24px rgba(37, 211, 102, 0.55),
+      0 3px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .fab-whatsapp:active {
+    transform: translateY(0) scale(0.96);
+  }
+
+  /* Desktop Tooltip for WhatsApp */
+  .fab-wa-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(6px);
+    background-color: var(--color-navy);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast),
+      visibility var(--transition-fast);
+  }
+
+  .fab-whatsapp:hover .fab-wa-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
+    .floating-actions {
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      right: calc(16px + env(safe-area-inset-right, 0px));
+      gap: 10px;
+    }
+
+    .fab-scroll-top {
+      width: 40px;
+      height: 40px;
+    }
+
+    .fab-whatsapp {
+      width: 48px;
+      height: 48px;
+    }
+
+    .fab-whatsapp svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .fab-wa-tooltip {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function initFloatingActions() {
+    const scrollBtn = document.getElementById('btn-scroll-top');
+    if (!scrollBtn) return;
+
+    let isScrolling = false;
+
+    function handleScroll() {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 300) {
+            scrollBtn.classList.add('is-visible');
+          } else {
+            scrollBtn.classList.remove('is-visible');
+          }
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+    }
+
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Check initial position on mount
+    handleScroll();
+  }
+
+  initFloatingActions();
+  document.addEventListener('astro:after-swap', initFloatingActions);
+</script>

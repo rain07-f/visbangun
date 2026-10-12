@@ -94,6 +94,11 @@ import FaqAccordion from '../components/contact/FaqAccordion.astro';
     }
   }
 
+  .info-column {
+    display: flex;
+    flex-direction: column;
+  }
+
   /* Office Card */
   .office-card {
     position: relative;
@@ -110,7 +115,7 @@ import FaqAccordion from '../components/contact/FaqAccordion.astro';
   .office-card-content {
     position: relative;
     z-index: 2;
-    padding: clamp(28px, 4vw, 44px);
+    padding: clamp(20px, 4vw, 44px);
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
@@ -147,5 +152,17 @@ import FaqAccordion from '../components/contact/FaqAccordion.astro';
     flex-wrap: wrap;
     gap: var(--space-3);
     margin-top: var(--space-2);
+  }
+
+  @media (max-width: 540px) {
+    .office-actions {
+      flex-direction: column;
+    }
+
+    .office-actions .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
   }
 </style>

@@ -1,6 +1,7 @@
 ---
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
+import FloatingActions from '../components/ui/FloatingActions.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -65,6 +66,7 @@ const formattedTitle = title.includes('Visi Bangun Perkasa')
       <slot />
     </main>
     <Footer />
+    <FloatingActions />
   </body>
 </html>
 
