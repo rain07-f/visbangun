@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 | Visi Bangun Perkasa"
+  description="Sorry, the page you're looking for doesn't exist or may have been moved — PT. Visi Bangun Perkasa."
+>
+  <section class="error-section">
+    <div class="container">
+      <div class="error-card">
+        <div class="error-numeral" aria-hidden="true">404</div>
+        <div class="eyebrow">Error 404</div>
+        <h1>Page Not Found</h1>
+        <p class="error-message">
+          Sorry, the page you're looking for doesn't exist or may have been moved.
+          The requested page could not be found.
+        </p>
+        <div class="error-actions">
+          <a class="btn btn-gold" href="/">
+            Back to Home &rarr;
+          </a>
+          <a class="btn btn-outline-dark" href="/contact">
+            Contact Us &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-section {
+    flex: 1;
+    min-height: calc(80vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(48px, 8vw, 96px) 0;
+    background-color: var(--color-bg-light);
+    background-image: radial-gradient(
+      circle at 50% 30%,
+      rgba(13, 116, 255, 0.05) 0%,
+      rgba(245, 248, 251, 1) 70%
+    );
+  }
+
+  .error-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(36px, 6vw, 64px) clamp(20px, 4vw, 48px);
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .error-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-navy), var(--color-gold), var(--color-blue));
+  }
+
+  .error-numeral {
+    font-size: clamp(4.5rem, 12vw, 7.5rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-navy);
+    margin-bottom: var(--space-2);
+    text-shadow: 0 4px 18px rgba(7, 26, 52, 0.08);
+  }
+
+  .error-card h1 {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-navy);
+    line-height: 1.25;
+    margin: var(--space-2) 0 var(--space-4);
+  }
+
+  .error-message {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto var(--space-8);
+  }
+
+  .error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .error-actions .btn {
+    min-width: 180px;
+  }
+
+  @media (max-width: 540px) {
+    .error-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .error-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
